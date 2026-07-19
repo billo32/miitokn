@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiITokn — Get Mi Home device tokens from an iPhone backup on your Mac</title>
+<meta name="description" content="MiITokn is a free, open-source macOS app that extracts Mi Home device tokens from a local iPhone backup. Get your Mi token for Home Assistant, python-miio and other smart home tools — 100% offline, nothing leaves your Mac.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://miitokn.com/">
+<meta property="og:title" content="MiITokn — Mi Home device tokens from an iPhone backup">
+<meta property="og:description" content="Free, open-source macOS app that extracts Mi Home device tokens from a local iPhone backup. Get your Mi token for Home Assistant and python-miio — fully offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://miitokn.com/">
+<meta property="og:site_name" content="MiITokn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MiITokn — Mi Home device tokens from an iPhone backup">
+<meta name="twitter:description" content="Free, open-source macOS app that extracts Mi Home device tokens from a local iPhone backup. Fully offline — nothing leaves your Mac.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%94%91%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MiITokn","operatingSystem":"macOS","applicationCategory":"UtilitiesApplication","description":"Free, open-source macOS app that extracts Mi Home device tokens from a local iPhone backup. Get your Mi token for Home Assistant, python-miio and other smart home tools — fully offline.","url":"https://miitokn.com/","softwareVersion":"1.1.0","downloadUrl":"https://github.com/billo32/miitokn/releases","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+
+<main class="page">
+  <div class="hero">
+
+    <section class="hero-left">
+      <div class="logo-badge">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17 12v4M21 12v4"/></svg>
+      </div>
+
+      <h1 class="title">Extract Xiaomi tokens from your iPhone backup</h1>
+
+      <p class="subtitle">A tiny desktop app that finds local iPhone backups and pulls out your Mi Home device tokens. Fully offline.</p>
+
+      <div class="downloads">
+        <a class="download primary" href="https://github.com/billo32/miitokn/releases">macOS</a>
+        <a class="download disabled" href="https://github.com/billo32/miitokn/releases">Windows<span class="soon-badge">soon</span></a>
+        <a class="download disabled" href="https://github.com/billo32/miitokn/releases">Linux<span class="soon-badge">soon</span></a>
+      </div>
+
+      <div class="meta">v1.1.0 · free &amp; open source · no telemetry</div>
+
+      <a class="github-link" href="https://github.com/billo32/miitokn">View source on GitHub ↗</a>
+    </section>
+
+    <section class="hero-right">
+      <div class="mock" aria-hidden="true">
+
+        <div class="mock-titlebar">
+          <span class="traffic-light red"></span>
+          <span class="traffic-light yellow"></span>
+          <span class="traffic-light green"></span>
+          <span class="app-name">MiITokn</span>
+        </div>
+
+        <div class="mock-header">
+          <div class="app-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17 12v4M21 12v4"/></svg>
+          </div>
+          <span class="app-title">MiITokn</span>
+          <span class="status" id="status"><span class="status-dot" id="status-dot"></span><span id="status-text">No access</span></span>
+        </div>
+
+        <div class="mock-body">
+
+          <!-- Scene 0: access -->
+          <div class="scene" id="scene-access">
+            <div class="scene-center">
+              <div class="access-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8a8a8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </div>
+              <div class="access-title">Folder access required</div>
+              <div class="access-text">Grant access to find local iPhone backups.</div>
+              <div class="grant-btn" id="grant-btn">Grant access…</div>
+            </div>
+          </div>
+
+          <!-- Scene 1: backup list -->
+          <div class="scene" id="scene-list" style="display:none">
+            <div class="scene-label">Select an iPhone backup</div>
+            <div class="backup-row">
+              <div class="backup-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>
+              </div>
+              <div class="backup-info">
+                <div class="backup-name">iPhone backup</div>
+                <div class="backup-date">Last backup: Apr 12, 2026</div>
+              </div>
+              <div class="backup-check"></div>
+            </div>
+            <div class="backup-row">
+              <div class="backup-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>
+              </div>
+              <div class="backup-info">
+                <div class="backup-name">iPhone backup</div>
+                <div class="backup-date">Last backup: Jul 12, 2026</div>
+              </div>
+              <div class="backup-check"></div>
+            </div>
+            <div class="backup-row">
+              <div class="backup-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>
+              </div>
+              <div class="backup-info">
+                <div class="backup-name">iPhone backup</div>
+                <div class="backup-date">Last backup: Mar 3, 2026</div>
+              </div>
+              <div class="backup-check"></div>
+            </div>
+          </div>
+
+          <!-- Scene 2: password -->
+          <div class="scene" id="scene-password" style="display:none">
+            <div class="pw-backup">
+              <div class="backup-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>
+              </div>
+              <div class="backup-info">
+                <div class="backup-name">iPhone backup</div>
+                <div class="backup-date">Last backup: Jul 12, 2026</div>
+              </div>
+              <span class="change-link">Change</span>
+            </div>
+            <div class="encrypted-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e0b64a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              <span>This backup is encrypted — enter your backup password.</span>
+            </div>
+            <div class="pw-label">Backup password</div>
+            <div class="pw-wrap">
+              <div class="pw-field" id="pw-field"></div>
+              <svg class="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="extract-btn">Start extraction</div>
+          </div>
+
+          <!-- Scene 3: progress -->
+          <div class="scene" id="scene-progress" style="display:none">
+            <div class="scene-center">
+              <div class="progress-ring-wrap">
+                <svg width="116" height="116" viewBox="0 0 116 116">
+                  <circle cx="58" cy="58" r="50" fill="none" stroke="#2f2f33" stroke-width="8"/>
+                  <circle id="ring-arc" cx="58" cy="58" r="50" fill="none" stroke="#ff5a1f" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.2" stroke-dashoffset="314.2"/>
+                </svg>
+                <div class="progress-percent" id="percent">0%</div>
+              </div>
+              <div class="progress-step" id="step-label">Copying backup…</div>
+            </div>
+          </div>
+
+          <!-- Scene 4: done -->
+          <div class="scene" id="scene-done" style="display:none">
+            <div class="done-header">
+              <div class="done-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="done-info">
+                <div class="done-title">Found 42 tokens</div>
+                <div class="done-sub">From backup on Jul 12, 2026</div>
+              </div>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a8a8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+
+            <div class="token-card">
+              <div class="token-head">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="2.5" fill="#c0c0c4" stroke="none"/></svg>
+                <span class="token-name">Xiaomi Smart Tower Fan 2</span>
+                <span class="token-ip">192.168.0.188</span>
+              </div>
+              <div class="token-row">
+                <code>995d4be545ea525b3b9af085823b28b3</code>
+                <span class="copy-label" id="copy1">Copy</span>
+              </div>
+            </div>
+
+            <div class="token-card">
+              <div class="token-head">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c0c0c4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="2.5" fill="#c0c0c4" stroke="none"/></svg>
+                <span class="token-name">Xiaomi Body Composition Scale S400</span>
+                <span class="token-via">via hub</span>
+              </div>
+              <div class="token-row">
+                <code>13c45cf430393359c1983151aa77bd20</code>
+                <span class="copy-label">Copy</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mock-dots">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <section class="credits">
+    <div class="credits-label">Code used directly</div>
+    <div class="credits-grid">
+      <a class="credit-card" href="https://github.com/ReagentX/crabapple">
+        <span class="credit-name">crabapple <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">Rust library that parses &amp; decrypts iOS backups — the heavy lifting.</span>
+      </a>
+      <a class="credit-card" href="https://github.com/tauri-apps/tauri">
+        <span class="credit-name">Tauri <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">The Rust + WebView desktop app framework.</span>
+      </a>
+      <a class="credit-card" href="https://github.com/rusqlite/rusqlite">
+        <span class="credit-name">rusqlite <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">Bundled SQLite for reading Manifest &amp; Mi Home databases.</span>
+      </a>
+      <a class="credit-card" href="https://github.com/RustCrypto">
+        <span class="credit-name">RustCrypto <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">aes, cbc, pbkdf2, aes-kw, hmac, sha1/sha2 primitives.</span>
+      </a>
+      <a class="credit-card" href="https://github.com/ebarnard/rust-plist">
+        <span class="credit-name">rust-plist <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">Parsing Info.plist / Manifest.plist / Status.plist.</span>
+      </a>
+    </div>
+
+    <div class="credits-label">Inspiration &amp; prior art</div>
+    <div class="credits-grid">
+      <a class="credit-card" href="https://github.com/rytilahti/python-miio">
+        <span class="credit-name">python-miio <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">Reference for Mi Home's ZTOKEN AES-ECB token scheme.</span>
+      </a>
+      <a class="credit-card" href="https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor">
+        <span class="credit-name">Xiaomi-cloud-tokens-extractor <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">By Piotr Machowski — inspired doing this locally from a backup.</span>
+      </a>
+      <a class="credit-card" href="https://www.home-assistant.io/integrations/xiaomi_miio/">
+        <span class="credit-name">HA Xiaomi Miio <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">Home Assistant integration — why these tokens are worth extracting.</span>
+      </a>
+      <a class="credit-card" href="https://sqlitebrowser.org/">
+        <span class="credit-name">iOS backup tools <span class="credit-arrow">↗</span></span>
+        <span class="credit-desc">iBackup Viewer, DB Browser for SQLite — the manual version this automates.</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="copyright">
+    © 2026 MiITokn · free &amp; open source · works fully offline
+  </footer>
+</main>
+
+<script src="js/main.js"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="8390d5f4-e47c-4008-9d41-e45a134c700d"></script>
+</body>
+</html>
