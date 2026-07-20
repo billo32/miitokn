@@ -19,6 +19,13 @@ jobs:
     needs: [create-release]
     if: always() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
     runs-on: macos-latest
+    env:
+      # Without this, cargo-binstall's unauthenticated GitHub API calls can hit
+      # rate limits and silently fall back to the x86_64 tauri-cli binary on
+      # this arm64 runner — the app still builds natively for arm64 (cargo
+      # targets the host triple regardless), but the CLI then runs under
+      # Rosetta and mislabels the DMG "x64" even though it's arm64 inside.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -68,6 +75,8 @@ jobs:
     needs: [create-release]
     if: always() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
     runs-on: windows-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
