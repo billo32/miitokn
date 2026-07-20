@@ -20,11 +20,7 @@ jobs:
     if: always() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
     runs-on: macos-latest
     env:
-      # Without this, cargo-binstall's unauthenticated GitHub API calls can hit
-      # rate limits and silently fall back to the x86_64 tauri-cli binary on
-      # this arm64 runner — the app still builds natively for arm64 (cargo
-      # targets the host triple regardless), but the CLI then runs under
-      # Rosetta and mislabels the DMG "x64" even though it's arm64 inside.
+      # Avoids unauthenticated cargo-binstall hitting GitHub API rate limits.
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -38,11 +34,14 @@ jobs:
       - uses: cargo-bins/cargo-binstall@main
 
       - name: Install Tauri CLI
-        # tauri-cli's GitHub release ships both aarch64 and x86_64 macOS
-        # binaries, but cargo-binstall's own arch detection picks x86_64 on
-        # this runner (it then runs under Rosetta) unless pinned explicitly —
-        # that mislabels the DMG "x64" even though the app itself is arm64.
-        run: cargo binstall tauri-cli --no-confirm --locked --targets aarch64-apple-darwin
+        # --targets: tauri-cli ships both aarch64 and x86_64 macOS binaries,
+        # but cargo-binstall's own arch detection picks x86_64 on this runner
+        # (then runs under Rosetta) unless pinned explicitly — mislabels the
+        # DMG "x64" even though the app itself builds natively arm64.
+        # --force: Swatinem/rust-cache restores ~/.cargo's install manifest
+        # but not always the ~/.cargo/bin binary itself, so a cached "already
+        # installed" can leave `cargo tauri` missing — force always reinstalls.
+        run: cargo binstall tauri-cli --no-confirm --locked --force --targets aarch64-apple-darwin
 
       - name: Build, sign and notarize app
         working-directory: src-tauri
@@ -93,7 +92,7 @@ jobs:
       - uses: cargo-bins/cargo-binstall@main
 
       - name: Install Tauri CLI
-        run: cargo binstall tauri-cli --no-confirm --locked
+        run: cargo binstall tauri-cli --no-confirm --locked --force
 
       - name: Build NSIS installer
         working-directory: src-tauri
