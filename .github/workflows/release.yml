@@ -38,7 +38,11 @@ jobs:
       - uses: cargo-bins/cargo-binstall@main
 
       - name: Install Tauri CLI
-        run: cargo binstall tauri-cli --no-confirm --locked
+        # tauri-cli's GitHub release ships both aarch64 and x86_64 macOS
+        # binaries, but cargo-binstall's own arch detection picks x86_64 on
+        # this runner (it then runs under Rosetta) unless pinned explicitly —
+        # that mislabels the DMG "x64" even though the app itself is arm64.
+        run: cargo binstall tauri-cli --no-confirm --locked --targets aarch64-apple-darwin
 
       - name: Build, sign and notarize app
         working-directory: src-tauri
